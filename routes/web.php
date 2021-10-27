@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::get("/timeline", [PostsController::class, "index"])->name('timeline');
     Route::get("/post/create", [PostsController::class, "create"])->name('post.create');
     Route::post("/post", [PostsController::class, "store"])->name('post.store');
+
+    Route::get("/profile/{user}", [UsersController::class, "profile"])->name('user.profile');
+    Route::get("/user-list", [UsersController::class, "userList"])->name('user.userList');
+
 });
 require __DIR__ . '/auth.php';
