@@ -9,7 +9,7 @@ class UsersController extends Controller {
     public function profile(User $user)
     {
         return view("user.profile", [
-            "user" => $user,
+            "user" => $user->load("posts"),
         ]);
     }
 
