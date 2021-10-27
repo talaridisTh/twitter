@@ -23,7 +23,25 @@
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+                    <section class="flex justify-between">
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                            {{ __('TimeLine') }}
+                        </h2>
+                        <ul class="flex space-x-4">
+                            <li>
+                                <a href="{{route('timeline')}}">Timeline</a>
+                            </li>
+                            <li>
+                                <a href="#">My profile</a>
+                            </li>
+                            <li>
+                                <a href="{{route('post.create')}}">Post a tweet</a>
+                            </li>
+                            <li>
+                                <a href="#">User list</a>
+                            </li>
+                        </ul>
+                    </section>
                 </div>
             </header>
 

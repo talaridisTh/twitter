@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,13 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/timeline', function () {
-    return view('timeline');
-})->middleware(['auth'])->name('timeline');
-
-require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::get("/timeline", [PostsController::class, "index"])->name('timeline');
+    Route::get("/post/create", [PostsController::class, "create"])->name('post.create');
+    Route::post("/post", [PostsController::class, "store"])->name('post.store');
+});
+require __DIR__ . '/auth.php';
