@@ -10,7 +10,11 @@ class PostsController extends Controller {
 
     public function index()
     {
-        return view("timeline");
+        return view("timeline", [
+            "posts" => Post::with("user")
+                ->whereIn("user_id", auth()->user()->following->pluck("id"))
+                ->orderByDesc('created_at')->get(),
+        ]);
     }
 
     public function create()

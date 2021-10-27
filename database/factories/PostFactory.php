@@ -13,6 +13,7 @@ class PostFactory extends Factory {
     {
         return [
             "body" => $this->faker->paragraph,
+            "created_at" => $this->faker->dateTimeBetween('now', '+1 years'),
         ];
     }
 
