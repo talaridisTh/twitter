@@ -16,6 +16,7 @@ class UserSeeder extends Seeder {
             ->hasPosts(3)
             ->create([
             'username' => "thanos",
+            'slug' => "thanos",
             'email' => "talaridis@gmail.com",
             'email_verified_at' => now(),
             'password' => Hash::make("password"),

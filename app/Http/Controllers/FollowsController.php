@@ -3,43 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Follow;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FollowsController extends Controller {
 
-    public function index()
+    public function follow(User $user)
     {
-        //
+        auth()->user()->follow($user);
+
+        return redirect()->back();
     }
 
-    public function create()
+    public function unfollow(User $user)
     {
-        //
-    }
+        auth()->user()->following()->detach($user);
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show(Follow $follow)
-    {
-        //
-    }
-
-    public function edit(Follow $follow)
-    {
-        //
-    }
-
-    public function update(Request $request, Follow $follow)
-    {
-        //
-    }
-
-    public function destroy(Follow $follow)
-    {
-        //
+        return redirect()->back();
     }
 
 }

@@ -10,7 +10,7 @@ class CreatePostsTable extends Migration {
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('body');
             $table->timestamps();
         });

@@ -17,7 +17,9 @@ class UsersController extends Controller {
     {
 
         return view("user.user-list", [
-            "users" => User::all(),
+            "users" => User::sortByFollowers()
+                ->get()
+                ->except(auth()->id()),
         ]);
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get("/profile/{user}", [UsersController::class, "profile"])->name('user.profile');
     Route::get("/user-list", [UsersController::class, "userList"])->name('user.userList');
+
+    Route::post("/follow/{user}", [FollowsController::class, "follow"])->name('follow');
+    Route::post("/unfollow/{user}", [FollowsController::class, "unfollow"])->name('unfollow');
+
 
 });
 require __DIR__ . '/auth.php';

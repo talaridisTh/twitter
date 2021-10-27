@@ -30,7 +30,7 @@
                         <a href="{{route('timeline')}}">Timeline</a>
                     </li>
                     <li>
-                        <a href="{{route('user.profile',auth()->user()->username)}}">My profile</a>
+                        <a href="{{route('user.profile',auth()->user()->slug)}}">My profile</a>
                     </li>
                     <li>
                         <a href="{{route('post.create')}}">Post a tweet</a>
