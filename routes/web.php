@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth',"visits"])->group(function () {
     Route::get("/timeline", [PostsController::class, "index"])->name('timeline');
     Route::get("/post/create", [PostsController::class, "create"])->name('post.create');
     Route::post("/post", [PostsController::class, "store"])->name('post.store');
