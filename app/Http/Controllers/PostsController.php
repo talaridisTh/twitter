@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\FollowRepository;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller {
+class PostsController extends FollowRepository {
 
     public function index()
     {
@@ -24,31 +25,9 @@ class PostsController extends Controller {
 
     public function store(PostRequest $request)
     {
-
-
         $post = $request->store();
 
         return redirect(route('timeline'))->with('success', "$post->name created successful");
-    }
-
-    public function show(Post $post)
-    {
-        //
-    }
-
-    public function edit(Post $post)
-    {
-        //
-    }
-
-    public function update(Request $request, Post $post)
-    {
-        //
-    }
-
-    public function destroy(Post $post)
-    {
-        //
     }
 
 }

@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class PageVisitsMiddleware {
 
+    /**
+     * Save every page
+     * @param Request $request
+     * @param Closure $next
+     * @return mixed
+     */
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check()) {
@@ -16,6 +22,7 @@ class PageVisitsMiddleware {
                 "path" => $request->path(),
             ]);
         }
+
         return $next($request);
     }
 

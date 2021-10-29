@@ -25,6 +25,7 @@
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <section class="flex flex-col items-start space-y-4">
                 <x-application-logo class="h-10 text-white fill-current" />
+                @include('layouts.navigation')
 
                 <x-menu />
             </section>

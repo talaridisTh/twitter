@@ -10,7 +10,6 @@ class UsersController extends Controller {
 
     public function profile(User $user)
     {
-
         return view("user.profile", [
             "user" => $user,
             "posts" => Post::where("user_id", $user->id)->paginate(5),

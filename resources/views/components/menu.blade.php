@@ -1,3 +1,4 @@
+
 <ul class="flex  flex-col ">
     <li  class="p-2 hover:bg-gray-700 text-lg text-gray-200 rounded-xl mb-3 {{ request()->is('timeline*') ? 'bg-gray-700' : '' }}">
         <a href="{{route('timeline')}}">Timeline</a>

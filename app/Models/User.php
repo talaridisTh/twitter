@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasFollow;
 use App\Traits\HasImage;
 use App\Traits\HasSlug;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -12,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable {
 
-    use HasApiTokens, HasFactory, Notifiable, HasSlug, HasImage;
+    use HasApiTokens, HasFactory, Notifiable, HasSlug, HasImage, HasFollow;
 
     /**
      * The attributes that are mass assignable.
@@ -55,7 +56,11 @@ class User extends Authenticatable {
         return $this->hasMany(Visits::class);
     }
 
-//    TODO: make all following system repository (Pro level refactor)
+    public function media()
+    {
+        return $this->belongsTo(Media::class, "media_id");
+    }
+
     public function following()
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
@@ -66,66 +71,13 @@ class User extends Authenticatable {
         return $this->belongsToMany(User::class, 'follows', 'following_user_id', 'user_id');
     }
 
-    public function follow($user)
-    {
-        return $this->following()->attach($user);
-    }
-
-    public function Unfollow($user)
-    {
-        return $this->following()->detach($user);
-    }
-
-    public function isFollow($user)
-    {
-        return $this->following()->where('following_user_id', $user->id)->exists();
-    }
-
-    public function countFollowers()
-    {
-        return $this->followers()->where('following_user_id', $this->id)->count();
-    }
-
-    public function countFollowing()
-    {
-        return $this->following()->where('user_id', $this->id)->count();
-    }
-
-    public function isFollowing()
-    {
-        return auth()->user()->following()
-            ->where('following_user_id', $this->id)
-            ->exists() ? "unfollow" : "follow";
-
-    }
-
-    public function scopeSortByFollowers($query)
-    {
-        $query->withCount("followers")
-            ->orderBy('followers_count', 'desc');
-    }
-
-    public function scopeNotFollowMe($query)
-    {
-        $query->sortByFollowers()
-            ->whereNotIn('id', [auth()->id()])
-            ->whereNotIn("id", auth()->user()->following->pluck("id"));
-    }
-
-//    TODO: make all following system repository (Pro level refactor)
     public function countPosts()
     {
         return $this->posts()->where('user_id', $this->id)->count();
     }
 
-    public function media()
-    {
-        return $this->belongsTo(Media::class, "media_id");
-    }
-
     public function getPhotoAttribute()
     {
-//        return "/image/guest-user.jpg";
         return $this->media?->path ?? "/image/guest-user.jpg";
     }
 

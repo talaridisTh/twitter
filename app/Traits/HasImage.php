@@ -7,16 +7,20 @@ use Intervention\Image\Facades\Image;
 
 trait HasImage {
 
+    /**
+     * Get media id
+     * @param $image
+     * @param null $width
+     * @param null $height
+     * @return null
+     */
     public function saveImages($image, $width = null, $height = null)
     {
 
-        //TODO: VALIDATE (section 3 )
         if (!$image) {
             return null;
         }
-        [$fileName, $ext] = explode(".", $image->getClientOriginalName());
-        $relPath = "image/";
-        $path = public_path($relPath . $fileName);
+        [$fileName, $ext, $relPath, $path] = $this->getMediaInfo($image);
         $media = Media::create([
             "name" => $fileName,
             "slug" => (new Media())->createSlug($fileName),
@@ -24,6 +28,21 @@ trait HasImage {
             "ext" => $ext,
             "path" => $relPath . $fileName,
         ]);
+        $this->resize($relPath, $image, $width, $height, $path);
+
+        return $media->id;
+
+    }
+
+    /**
+     * @param string $relPath
+     * @param $image
+     * @param mixed $width
+     * @param mixed $height
+     * @param string $path
+     */
+    private function resize(string $relPath, $image, mixed $width, mixed $height, string $path): void
+    {
         if (!file_exists(public_path($relPath))) {
             mkdir(public_path($relPath), 666, true);
         }
@@ -31,9 +50,19 @@ trait HasImage {
             $constraint->aspectRatio();
             $constraint->upsize();
         })->save($path);
+    }
 
-        return $media->id;
+    /**
+     * @param $image
+     * @return array
+     */
+    private function getMediaInfo($image): array
+    {
+        [$fileName, $ext] = explode(".", $image->getClientOriginalName());
+        $relPath = "image/";
+        $path = public_path($relPath . $fileName);
 
+        return [$fileName, $ext, $relPath, $path];
     }
 
 }

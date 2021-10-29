@@ -16,15 +16,16 @@ class PostRequest extends FormRequest {
     }
 
     /**
+     * Get post
      * @return mixed
      */
-    public function store()
+    public function store(): mixed
     {
 
         $post = Post::create([
             "body" => $this->body,
             "user_id" => auth()->id(),
-            "media_id" => (new Post())->saveImages(image:$this->media,width: 500,height: 250),
+            "media_id" => (new Post())->saveImages(image: $this->media, width: 500, height: 250),
         ]);
 
         return $post;
