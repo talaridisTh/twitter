@@ -105,6 +105,13 @@ class User extends Authenticatable {
             ->orderBy('followers_count', 'desc');
     }
 
+    public function scopeNotFollowMe($query)
+    {
+        $query->sortByFollowers()
+            ->whereNotIn('id', [auth()->id()])
+            ->whereNotIn("id", auth()->user()->following->pluck("id"));
+    }
+
 //    TODO: make all following system repository (Pro level refactor)
     public function countPosts()
     {
@@ -118,7 +125,8 @@ class User extends Authenticatable {
 
     public function getPhotoAttribute()
     {
-        return $this->media?->path;
+//        return "/image/guest-user.jpg";
+        return $this->media?->path ?? "/image/guest-user.jpg";
     }
 
     public function getRouteKeyName()

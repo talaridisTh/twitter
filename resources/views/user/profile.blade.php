@@ -1,41 +1,19 @@
 <x-app-layout>
-    <div class="container mx-auto mt-10">
-        <img src="{{$user->photo}}" class="mb-3" alt="">
-        @can('avatar', $user)
-        <form method="post" action="{{route('user.avatar')}}" enctype="multipart/form-data"
-              class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col items-end p-6">
-                @csrf
-            <div class="flex justify-between w-full">
-                <input name="media" type="file">
-                <button class="py-2 px-10 bg-blue-400 rounded-xl w-28 text-white">Save</button>
-            </div>
-        </form>
-        @endcan
-        <ul class="space-y-4">
-            <li>Username: {{$user->username}}</li>
-            <li>Email: {{$user->email}}</li>
-            <li>Count of total followers: {{$user->countFollowers()}}</li>
-            <li>Count of total following : {{$user->countFollowing()}}</li>
-            <p>Count of Posts: {{$user->countPosts()}}</p>
+    <div class=" mt-10">
+        <div class="flex justify-between border-b border-gray-300 border-gray-300 p-10 ">
+            <img src="{{asset($user->photo)}}" class="inline-block h-32 w-32 object-cover rounded-full" alt="avatar">
+            <x-upload-image :user="$user" />
+        </div>
+        <ul class="space-y-4 p-10 text-gray-200 text-lg">
+           <x-user-info :user="$user"/>
             <li>
-                <h4 class="font-bold">Posts</h4>
+                <h4 class="font-bold text-lg text-gray-200 mb-3">Posts</h4>
                 <ul class="space-y-3">
-                    @foreach($posts as $key=> $post)
-                        <img src="{{$post->media?->path}}" alt="">
-                        <li>({{$post->created_at}}) - {{$post->body}} </li>
-                    @endforeach
-                    {{ $posts->links() }}
+                    <x-post :posts="$posts" :show="false" />
                 </ul>
             </li>
             @can('follow', $user)
-                <li>
-                    <form method="POST"
-                          action="{{ route($user->isFollowing(), $user->slug) }}"
-                    >
-                        @csrf
-                        <button class="p-2 bg-blue-400 rounded text-white">{{$user->isFollowing()}}</button>
-                    </form>
-                </li>
+                <x-follow-button :user="$user" />
             @endcan
         </ul>
 

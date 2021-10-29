@@ -1,24 +1,24 @@
 <x-app-layout>
     <div class="container mx-auto mt-10">
 
-        <ul class="grid grid-cols-4 gap-5">
+        <ul class="grid grid-cols-1 gap-5 px-10">
             @foreach($users as $user)
-                <li class="border p-10">
-                    <img src="{{$user->photo}}" alt="">
-                    <a href="{{route('user.profile',$user->slug)}}">UserName : {{$user->slug}}</a>
-                    <p>Follower: {{$user->countFollowers()}}</p>
-                    <p>Following: {{$user->countFollowing()}}</p>
-                    <p>Posts: {{$user->countPosts()}}</p>
-                    <form method="POST"
-                          action="{{ route($user->isFollowing(), $user->slug) }}"
-                    >
-                        @csrf
-                        <button class="p-2 bg-blue-400 rounded text-white">{{$user->isFollowing()}}</button>
-                    </form>
+                <li class="border p-10 flex items-center justify-around text-gray-200">
+                    <img src="{{asset($user->photo)}}" class="object-cover inline-block h-32 w-32 rounded-full mr-40 "
+                         alt="avatar">
+                    <ul class="flex flex-col space-y-1 flex-1">
+                        <x-user-info :user="$user"/>
+                        <li>
+                            <x-follow-button :user="$user" />
+                        </li>
+                    </ul>
                 </li>
             @endforeach
-            {{$users->links()}}
+
         </ul>
+        <div class="mt-5 px-10">
+            {{$users->links()}}
+        </div>
 
 
     </div>

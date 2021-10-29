@@ -2,8 +2,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form method="post" action="{{route('post.store')}}" enctype="multipart/form-data"
-                  class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col items-end p-6">
-                <div class=" bg-white border-gray-200 items-end space-y-2 w-full">
+                  class="shadow-sm sm:rounded-lg flex flex-col items-end p-6">
+                <div class="border-gray-200 items-end space-y-2 w-full">
                     @csrf
                     <textarea name="body" id="body" class="w-full" cols="30" rows="10"></textarea>
                     @error("body" )
