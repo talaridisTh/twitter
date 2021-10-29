@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use App\Models\Follow;
 use App\Models\User;
-use App\Policies\FollowPolicy;
+use App\Policies\UserPolicy;
+use App\Policies\UploadAvatarPolicy;
 use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -17,7 +18,7 @@ class AuthServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $policies = [
-        User::class => FollowPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**

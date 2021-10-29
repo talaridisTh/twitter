@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class FollowPolicy {
+class UserPolicy {
 
     use HandlesAuthorization;
 
@@ -14,10 +14,16 @@ class FollowPolicy {
 
     }
 
-    public function update(User $user, User $selectedUser): bool
+    public function follow(User $user, User $selectedUser): bool
     {
 
         return $user->id != $selectedUser->id;
+    }
+
+    public function avatar(User $user, User $selectedUser): bool
+    {
+
+        return $user->id == $selectedUser->id;
     }
 
 }

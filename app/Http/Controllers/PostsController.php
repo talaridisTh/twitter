@@ -13,7 +13,7 @@ class PostsController extends Controller {
         return view("timeline", [
             "posts" => Post::with("user")
                 ->whereIn("user_id", auth()->user()->following->pluck("id"))
-                ->orderByDesc('created_at')->get(),
+                ->orderByDesc('created_at')->paginate(5),
         ]);
     }
 
@@ -24,6 +24,7 @@ class PostsController extends Controller {
 
     public function store(PostRequest $request)
     {
+
 
         $post = $request->store();
 

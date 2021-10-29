@@ -4,6 +4,7 @@
         <ul class="grid grid-cols-4 gap-5">
             @foreach($users as $user)
                 <li class="border p-10">
+                    <img src="{{$user->photo}}" alt="">
                     <a href="{{route('user.profile',$user->slug)}}">UserName : {{$user->slug}}</a>
                     <p>Follower: {{$user->countFollowers()}}</p>
                     <p>Following: {{$user->countFollowing()}}</p>
@@ -16,6 +17,7 @@
                     </form>
                 </li>
             @endforeach
+            {{$users->links()}}
         </ul>
 
 

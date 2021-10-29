@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post("/post", [PostsController::class, "store"])->name('post.store');
 
     Route::get("/profile/{user}", [UsersController::class, "profile"])->name('user.profile');
+    Route::post("/upload/avatar", [UsersController::class, "avatar"])->name('user.avatar');
     Route::get("/user-list", [UsersController::class, "userList"])->name('user.userList');
 
     Route::post("/follow/{user}", [FollowsController::class, "follow"])->name('follow');

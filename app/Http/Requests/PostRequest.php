@@ -10,7 +10,8 @@ class PostRequest extends FormRequest {
     public function rules()
     {
         return [
-            "body" => "required",
+            "body" => "required|max:140",
+            "media" => "image|mimes:jpeg,png,jpg,gif,svg|max:1024",
         ];
     }
 
@@ -20,11 +21,13 @@ class PostRequest extends FormRequest {
     public function store()
     {
 
-        return Post::create([
+        $post = Post::create([
             "body" => $this->body,
             "user_id" => auth()->id(),
+            "media_id" => (new Post())->saveImages(image:$this->media,width: 500,height: 250),
         ]);
 
+        return $post;
     }
 
     public function authorize()

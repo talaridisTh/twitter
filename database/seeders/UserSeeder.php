@@ -13,7 +13,9 @@ class UserSeeder extends Seeder {
     public function run()
     {
         User::factory()
-            ->hasPosts(3)
+            ->hasPosts(7)
+            ->hasFollowing(3)
+            ->hasFollowers(6)
             ->create([
             'username' => "thanos",
             'slug' => "thanos",
@@ -26,6 +28,8 @@ class UserSeeder extends Seeder {
         User::factory()
             ->count(10)
             ->hasPosts(3)
+            ->hasFollowing(1)
+            ->hasFollowers(1)
             ->create();
     }
 

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model {
 
-    use HasFactory;
+    use HasFactory, HasImage;
 
     protected $guarded = [];
 
@@ -16,6 +17,9 @@ class Post extends Model {
         return $this->belongsTo(User::class);
     }
 
-
+    public function media()
+    {
+        return $this->belongsTo(Media::class,"media_id");
+    }
 
 }
