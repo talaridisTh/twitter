@@ -23,6 +23,7 @@ class User extends Authenticatable {
     protected $fillable = [
         'username',
         'media_id',
+        'slug',
         'email',
         'password',
     ];

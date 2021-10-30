@@ -33,8 +33,9 @@
    > In the `.env` file fill in the `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` options to match the credentials of the database you just created. This will allow us to run migrations database in the next step.
 
 8. In the `.env` file, include the mail credentials to send and receive emails when using the website.
-
-9. Last but not least, run `php artisan migrate --seed` to create the database schema.
+9. Run queue for mail
+   `php artisan queue:work`
+11. Last but not least, run `php artisan migrate --seed` to create the database schema.
 
 ## Running The App 🛠
 

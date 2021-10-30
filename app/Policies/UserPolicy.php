@@ -9,17 +9,22 @@ class UserPolicy {
 
     use HandlesAuthorization;
 
-    public function __construct()
-    {
-
-    }
-
+    /**
+     * @param User $user
+     * @param User $selectedUser
+     * @return bool
+     */
     public function follow(User $user, User $selectedUser): bool
     {
 
         return $user->id != $selectedUser->id;
     }
 
+    /**
+     * @param User $user
+     * @param User $selectedUser
+     * @return bool
+     */
     public function avatar(User $user, User $selectedUser): bool
     {
 
