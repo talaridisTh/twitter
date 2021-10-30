@@ -16,7 +16,8 @@ class PageVisitsMiddleware {
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check()) {
+
+        if (auth()->check() && request()->isMethod('get')) {
             Visits::create([
                 "user_id" => auth()->id(),
                 "path" => $request->path(),

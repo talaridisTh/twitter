@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class PostsController extends FollowRepository {
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index()
     {
         return view("timeline", [
@@ -18,11 +21,18 @@ class PostsController extends FollowRepository {
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function create()
     {
         return view("post.store");
     }
 
+    /**
+     * @param PostRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(PostRequest $request)
     {
         $post = $request->store();

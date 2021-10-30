@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller {
 
+    /**
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function profile(User $user)
     {
         return view("user.profile", [
@@ -16,6 +20,9 @@ class UsersController extends Controller {
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function userList()
     {
 
@@ -26,6 +33,10 @@ class UsersController extends Controller {
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function avatar(Request $request)
     {
         auth()->user()->update([
